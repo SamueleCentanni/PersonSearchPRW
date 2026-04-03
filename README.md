@@ -14,7 +14,7 @@
 
 ![Python](https://img.shields.io/badge/python-3.10-blue)
 ![PyTorch](https://img.shields.io/badge/pytorch-2.2-orange)
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/SamueleCentanni/PersonSearch_PRW/blob/main/main.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/SamueleCentanni/PersonSearchPRW/blob/main/main.ipynb)
 
 This is the final report for the exam *Machine Learning for Computer Vision*.
 
