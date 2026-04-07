@@ -2,7 +2,6 @@ import gc
 import math
 import sys
 import torch
-from torch import autocast
 from tqdm import tqdm
 import wandb
 
@@ -51,11 +50,12 @@ def train_one_epoch(model, optimizer, data_loader, device, epoch, scaler, cfg, u
         warmup_scheduler = warmup_lr_scheduler(optimizer, warmup_iters, warmup_factor)
 
     pbar = tqdm(data_loader, desc=f"train epoch {epoch}", leave=False)
+    amp_enabled = bool(use_amp and device.type == "cuda")
 
     for step, (images, targets) in enumerate(pbar):
         images, targets = to_device(images, targets, device)
 
-        with autocast(enabled=use_amp):
+        with torch.autocast(device_type=device.type, enabled=amp_enabled):
             loss_dict = model(images, targets)
             losses = sum(loss for loss in loss_dict.values())
 
@@ -105,12 +105,13 @@ def validate_one_epoch(model, data_loader, device, epoch, use_amp=True):
     loss_sum = 0.0
 
     pbar = tqdm(data_loader, desc=f"val epoch {epoch}", leave=False)
+    amp_enabled = bool(use_amp and device.type == "cuda")
 
     with torch.no_grad():
         for images, targets in pbar:
             images, targets = to_device(images, targets, device)
 
-            with autocast(enabled=use_amp):
+            with torch.autocast(device_type=device.type, enabled=amp_enabled):
                 loss_dict = model(images, targets)
                 losses = sum(loss for loss in loss_dict.values())
 
