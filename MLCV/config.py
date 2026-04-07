@@ -49,6 +49,8 @@ class Config:
 
     class SOLVER:
         MAX_EPOCHS = 18
+        EVAL_PERIOD = 1
+        CKPT_PERIOD = 1
         
         BASE_LR = 0.003
         CONVNEXT_BASE_LR = 5e-5 # ConvNeXt-specific optimizer settings, from the paper
